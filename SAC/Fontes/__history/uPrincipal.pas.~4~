@@ -1,0 +1,42 @@
+unit uPrincipal;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, Menus, ImgList, ComCtrls, ToolWin;
+
+type
+  TfPrincipal = class(TForm)
+    imPrincipal: TImageList;
+    MainMenu1: TMainMenu;
+    Cadastros1: TMenuItem;
+    Movimentaes1: TMenuItem;
+    Relatrios1: TMenuItem;
+    Sair1: TMenuItem;
+    Pessoas1: TMenuItem;
+    Clientes1: TMenuItem;
+    Funcionrios1: TMenuItem;
+    N1: TMenuItem;
+    Problemas1: TMenuItem;
+    Status1: TMenuItem;
+    N2: TMenuItem;
+    Sair2: TMenuItem;
+    ToolBar1: TToolBar;
+    ToolButton1: TToolButton;
+    ToolButton2: TToolButton;
+    ToolButton3: TToolButton;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  fPrincipal: TfPrincipal;
+
+implementation
+
+{$R *.dfm}
+
+end.

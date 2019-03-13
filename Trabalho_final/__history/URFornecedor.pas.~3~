@@ -1,0 +1,43 @@
+unit URFornecedor;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, FMTBcd, Provider, DBClient, RpCon, RpConDS, RpRave, RpDefine, RpBase,
+  RpSystem, DB, SqlExpr, ComCtrls, StdCtrls, ExtCtrls;
+
+type
+  TFRFornecedor = class(TForm)
+    Panel1: TPanel;
+    Label6: TLabel;
+    btnPesquisar: TButton;
+    txtCnpJCpf: TEdit;
+    ListView1: TListView;
+    Button1: TButton;
+    TSQLQuery1: TSQLQuery;
+    rvsysPessoa: TRvSystem;
+    rvprjPessoa: TRvProject;
+    rvdsPessoa: TRvDataSetConnection;
+    ClientDataSet1: TClientDataSet;
+    DataSetProvider1: TDataSetProvider;
+    procedure Button1Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FRFornecedor: TFRFornecedor;
+
+implementation
+
+{$R *.dfm}
+
+procedure TFRFornecedor.Button1Click(Sender: TObject);
+begin
+rvprjPessoa.execute;
+end;
+
+end.

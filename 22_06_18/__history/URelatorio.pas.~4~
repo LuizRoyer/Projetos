@@ -1,0 +1,36 @@
+unit URelatorio;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls, ExtCtrls, FMTBcd, RpCon, RpConDS, RpRave, RpDefine, RpBase,
+  RpSystem, DB, SqlExpr, URCliente;
+
+type
+  TTRelatorio = class(TForm)
+    Panel1: TPanel;
+    Button1: TButton;
+    Button2: TButton;
+    Button3: TButton;
+    Button4: TButton;
+    procedure Button1Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  TRelatorio: TTRelatorio;
+
+implementation
+
+{$R *.dfm}
+
+procedure TTRelatorio.Button1Click(Sender: TObject);
+begin
+  FRCliente.Show();
+end;
+
+end.

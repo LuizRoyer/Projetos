@@ -1,0 +1,14 @@
+program PSac;
+
+uses
+  Forms,
+  UPrincipal in '..\Fontes\UPrincipal.pas' {FPrincipal};
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TFPrincipal, FPrincipal);
+  Application.Run;
+end.

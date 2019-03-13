@@ -1,0 +1,87 @@
+unit UData;
+
+interface
+
+uses
+  SysUtils, Classes, DBXMySQL, FMTBcd, DB, SqlExpr, Provider, DBClient;
+
+type
+  TData = class(TDataModule)
+    SQLQuery1: TSQLQuery;
+    SQLConnection1: TSQLConnection;
+    DtSet_Itens_Vendas: TSQLDataSet;
+    DtSet_Itens_VendasPK_Itens_Vendas: TIntegerField;
+    DtSet_Itens_Vendasqtde: TSingleField;
+    DtSet_Itens_Vendasvalorunitario: TSingleField;
+    DtSet_Itens_Vendasdesconto: TSingleField;
+    DtSet_Itens_Vendasacrescimo: TSingleField;
+    DtSet_Itens_VendasVenda_PK_Venda: TIntegerField;
+    DtSet_Itens_VendasProduto_PK_Produto: TIntegerField;
+    Itens_Vendas2: TClientDataSet;
+    Itens_Vendas2PK_Itens_Vendas: TIntegerField;
+    Itens_Vendas2qtde: TSingleField;
+    Itens_Vendas2valorunitario: TSingleField;
+    Itens_Vendas2desconto: TSingleField;
+    Itens_Vendas2acrescimo: TSingleField;
+    Itens_Vendas2Venda_PK_Venda: TIntegerField;
+    Itens_Vendas2Produto_PK_Produto: TIntegerField;
+    itens_vendas1: TDataSetProvider;
+    DtSetPessoa: TSQLDataSet;
+    DtSetPessoaPK_Pessoa: TIntegerField;
+    DtSetPessoanome: TStringField;
+    DtSetPessoaendereco: TStringField;
+    DtSetPessoacontato: TStringField;
+    DtSetPessoadata_nasc: TStringField;
+    DtSetPessoacnpj: TStringField;
+    DtSetPessoacpf: TStringField;
+    DtSetPessoatipo: TStringField;
+    Pessoa1: TDataSetProvider;
+    Pessoa2: TClientDataSet;
+    Pessoa2PK_Pessoa: TIntegerField;
+    Pessoa2nome: TStringField;
+    Pessoa2endereco: TStringField;
+    Pessoa2contato: TStringField;
+    Pessoa2data_nasc: TStringField;
+    Pessoa2cnpj: TStringField;
+    Pessoa2cpf: TStringField;
+    Pessoa2tipo: TStringField;
+    DtSetProduto: TSQLDataSet;
+    DtSetProdutoPK_Produto: TIntegerField;
+    DtSetProdutodescricao: TStringField;
+    DtSetProdutoun: TStringField;
+    DtSetProdutovalorunitario: TSingleField;
+    DtSetProdutoqtdeestoque: TSingleField;
+    Produto1: TDataSetProvider;
+    Produto2: TClientDataSet;
+    Produto2PK_Produto: TIntegerField;
+    Produto2descricao: TStringField;
+    Produto2un: TStringField;
+    Produto2valorunitario: TSingleField;
+    Produto2qtdeestoque: TSingleField;
+    DtSetVenda: TSQLDataSet;
+    DtSetVendaPK_Venda: TIntegerField;
+    DtSetVendadata: TDateField;
+    DtSetVendastatus: TStringField;
+    DtSetVendatipo: TStringField;
+    DtSetVendaCliente_PK_Pessoa: TIntegerField;
+    Venda1: TDataSetProvider;
+    Venda2: TClientDataSet;
+    Venda2PK_Venda: TIntegerField;
+    Venda2data: TDateField;
+    Venda2status: TStringField;
+    Venda2tipo: TStringField;
+    Venda2Cliente_PK_Pessoa: TIntegerField;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Data: TData;
+
+implementation
+
+{$R *.dfm}
+
+end.

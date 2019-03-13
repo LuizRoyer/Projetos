@@ -1,0 +1,72 @@
+unit UPessoa;
+
+interface
+
+uses
+  classes, dialogs, SqlExpr, sysutils;
+
+Type
+  TPessoa = class
+  private
+    idPes: integer;
+    nome: string;
+    endereco: string;
+    contato: string;
+    data_nasc: string;
+    cpf: string;
+    cnpj: string;
+    tipo: string;
+  protected
+    SQL: TSQLQuery;
+  public
+    property pIdPes: integer read idPes write idPes;
+    property pNome: string read nome write nome;
+    property pEndereco: string read endereco write endereco;
+    property pContato: string read contato write contato;
+    property pData_nasc: string read data_nasc write data_nasc;
+    property pCpf: string read cpf write cpf;
+    property pCnpj: string read cnpj write cnpj;
+    property pTipo: string read tipo write tipo;
+    // property pSQLQuery: TSQLQuery read SQLQuery write SQLQuery;
+
+    procedure gravar; virtual;
+    procedure Pesquisar();
+
+  end;
+
+implementation
+
+uses UData;
+
+{ TPessoa }
+
+procedure TPessoa.gravar;
+begin
+
+  with (Data.DtSetPessoa) do
+  begin
+
+    FieldByName('nome').AsString := self.nome;
+    FieldByName('endereco').AsString := self.endereco;
+    FieldByName('contato').AsString := self.contato;
+    FieldByName('data_nasc').AsString := self.data_nasc;
+    FieldByName('tipo').AsString := self.tipo;
+    FieldByName('cpf').AsString := self.cpf;
+    FieldByName('cnpj').AsString := self.cnpj;
+       post;
+
+  end;
+end;
+
+procedure TPessoa.Pesquisar;
+begin
+  SQL.Close;
+  SQL.SQL.Clear;
+  SQL.SQL.Add('select *  FROM pessoa');
+  SQL.open;
+  SQL.ExecSQL;
+
+  // self.pSQLQuery.First;
+end;
+
+end.

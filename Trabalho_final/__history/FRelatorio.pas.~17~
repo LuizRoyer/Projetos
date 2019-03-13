@@ -1,0 +1,80 @@
+unit FRelatorio;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls, ExtCtrls, ComCtrls, FMTBcd, DB, SqlExpr, UVendaItem,
+  UVenda;
+
+type
+  TFRelatorios = class(TForm)
+    ListView1: TListView;
+    procedure FormShow(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FRelatorios: TFRelatorios;
+  SQLQuery1: TSQLQuery;
+  vendasItem: TVendaItem;
+  venda: TVenda;
+
+implementation
+
+uses FVenda, UData, UMenu;
+
+{$R *.dfm}
+
+procedure TFRelatorios.FormShow(Sender: TObject);
+var
+  qtd, valor, desconto, acrecimo: double;
+begin
+  venda := TVenda.Create();
+  vendasItem := TVendaItem.Create();
+
+  venda.pSQLQuery := Data.SQLQuery1;
+
+  ListView1.Clear;
+  venda.pSQLQuery := Data.SQLQuery1;
+  venda.RelatorioVenda;
+  venda.pSQLQuery.First;
+  while (not venda.pSQLQuery.eof) do
+  begin
+    with ListView1.Items.Add do
+    begin
+      Caption := vendasItem.pSQLQuery.FieldByName('v.idV').AsString;
+      SubItems.Add(vendasItem.pSQLQuery.FieldByName('v.cliente').AsString);
+      SubItems.Add(vendasItem.pSQLQuery.FieldByName('c.nome').AsString);
+      SubItems.Add(vendasItem.pSQLQuery.FieldByName('v.data').AsString);
+      SubItems.Add(vendasItem.pSQLQuery.FieldByName('v.status').AsString);
+      SubItems.Add(vendasItem.pSQLQuery.FieldByName('c.tipo').AsString);
+      SubItems.Add(vendasItem.pSQLQuery.FieldByName('p.descricao').AsString);
+      SubItems.Add(vendasItem.pSQLQuery.FieldByName('i.acrecimo').AsString);
+      SubItems.Add(vendasItem.pSQLQuery.FieldByName('i.desconto').AsString);
+      SubItems.Add(vendasItem.pSQLQuery.FieldByName('i.valorUnitario')
+        .AsString);
+      SubItems.Add(vendasItem.pSQLQuery.FieldByName('i.qtdVenda').AsString);
+
+      qtd := StrToFloat((vendasItem.pSQLQuery.FieldByName('i.qtdVenda')
+        .AsString));
+      valor := StrToFloat((vendasItem.pSQLQuery.FieldByName('i.valorUnitario')
+        .AsString));
+      desconto := StrToFloat((vendasItem.pSQLQuery.FieldByName('i.desconto')
+        .AsString));
+      acrecimo := StrToFloat((vendasItem.pSQLQuery.FieldByName('i.acrecimo')
+        .AsString));
+
+      SubItems.Add(FloatToStr(valor + acrecimo - desconto));
+      SubItems.Add(FloatToStr(qtd * (valor + acrecimo - desconto)));
+
+    end;
+    vendasItem.pSQLQuery.Next;
+  end;
+
+end;
+
+end.

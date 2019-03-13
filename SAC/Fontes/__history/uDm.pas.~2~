@@ -1,0 +1,25 @@
+unit uDm;
+
+interface
+
+uses
+  SysUtils, Classes, IBDatabase, DB;
+
+type
+  Tdm = class(TDataModule)
+    dbSac: TIBDatabase;
+    trSac: TIBTransaction;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  dm: Tdm;
+
+implementation
+
+{$R *.dfm}
+
+end.

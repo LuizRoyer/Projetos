@@ -1,0 +1,25 @@
+unit UData;
+
+interface
+
+uses
+  SysUtils, Classes, DBXMySQL, FMTBcd, DB, SqlExpr;
+
+type
+  TDataModule1 = class(TDataModule)
+    SQLConnection1: TSQLConnection;
+    SQLQuery1: TSQLQuery;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  DataModule1: TDataModule1;
+
+implementation
+
+{$R *.dfm}
+
+end.

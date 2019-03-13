@@ -1,0 +1,32 @@
+unit uCad_Cliente;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, uDm, DB, StdCtrls, ExtCtrls;
+
+type
+  TfCad_Cliente = class(TForm)
+    Panel1: TPanel;
+    Panel2: TPanel;
+    Panel3: TPanel;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    dsCliente: TDataSource;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  fCad_Cliente: TfCad_Cliente;
+
+implementation
+
+{$R *.dfm}
+
+end.

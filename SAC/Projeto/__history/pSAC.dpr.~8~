@@ -1,0 +1,21 @@
+program pSAC;
+
+uses
+  Forms,
+  uPrincipal in '..\Fontes\uPrincipal.pas' {fPrincipal},
+  uDm in '..\Fontes\uDm.pas' {dm: TDataModule},
+  uCad_Cliente in '..\Fontes\uCad_Cliente.pas' {fCad_Cliente},
+  uCad_Funcionario in '..\Fontes\uCad_Funcionario.pas' {fCad_Funcionario},
+  uCad_Sistemas in '..\Fontes\uCad_Sistemas.pas' {fCad_Sistemas},
+  uCad_Problema in '..\Fontes\uCad_Problema.pas' {fCad_Problema};
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(Tdm, dm);
+  Application.CreateForm(TfPrincipal, fPrincipal);
+  Application.CreateForm(TfCad_Problema, fCad_Problema);
+  Application.Run;
+end.

@@ -1,0 +1,62 @@
+unit uPrincipal;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, Menus, ImgList, ComCtrls, ToolWin, ExtCtrls, pngimage;
+
+type
+  TfPrincipal = class(TForm)
+    imPrincipal: TImageList;
+    MainMenu1: TMainMenu;
+    Cadastros1: TMenuItem;
+    Movimentaes1: TMenuItem;
+    Relatrios1: TMenuItem;
+    Sair1: TMenuItem;
+    Pessoas1: TMenuItem;
+    Clientes1: TMenuItem;
+    Funcionrios1: TMenuItem;
+    N1: TMenuItem;
+    Problemas1: TMenuItem;
+    Status1: TMenuItem;
+    N2: TMenuItem;
+    Sair2: TMenuItem;
+    ToolBar1: TToolBar;
+    ToolButton1: TToolButton;
+    ToolButton2: TToolButton;
+    ToolButton3: TToolButton;
+    StatusBar1: TStatusBar;
+    Timer1: TTimer;
+    Panel1: TPanel;
+    Panel2: TPanel;
+    Image1: TImage;
+    procedure Timer1Timer(Sender: TObject);
+    procedure FormActivate(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  fPrincipal: TfPrincipal;
+
+implementation
+
+{$R *.dfm}
+
+procedure TfPrincipal.FormActivate(Sender: TObject);
+begin
+    StatusBar1.Panels[2].Text:= datetostr(date);
+    Image1.Picture.LoadFromFile
+          ('T:\SAC\Icones\users.png');
+end;
+
+procedure TfPrincipal.Timer1Timer(Sender: TObject);
+begin
+     StatusBar1.Panels[0].Text:=
+                   timetostr(time);
+end;
+
+end.

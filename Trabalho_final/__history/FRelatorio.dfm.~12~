@@ -1,0 +1,114 @@
+object FRelatorios: TFRelatorios
+  Left = 0
+  Top = 0
+  Caption = 'Relatorio'
+  ClientHeight = 394
+  ClientWidth = 776
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  OnShow = FormShow
+  PixelsPerInch = 96
+  TextHeight = 13
+  object ListView1: TListView
+    Left = 0
+    Top = 0
+    Width = 776
+    Height = 394
+    Align = alClient
+    Columns = <
+      item
+        Caption = ' Nota Fiscal'
+        Width = 75
+      end
+      item
+        Caption = 'Nr Cliente'
+        Width = 75
+      end
+      item
+        Caption = 'Nome Cliente'
+        Width = 120
+      end
+      item
+        Caption = 'Status'
+        Width = 100
+      end
+      item
+        Caption = 'Tipo'
+      end
+      item
+        Caption = 'Produto'
+        Width = 100
+      end
+      item
+        Caption = 'Valor Unitario'
+        Width = 100
+      end
+      item
+        Caption = 'Quantidade Venda'
+        Width = 100
+      end
+      item
+        Caption = 'Valor total Unidade'
+        Width = 100
+      end
+      item
+        Caption = 'Total a Pagar'
+        Width = 100
+      end>
+    TabOrder = 0
+    ViewStyle = vsReport
+  end
+  object rvsysVenda: TRvSystem
+    TitleSetup = 'Output Options'
+    TitleStatus = 'Report Status'
+    TitlePreview = 'Report Preview'
+    SystemFiler.StatusFormat = 'Generating page %p'
+    SystemPreview.ZoomFactor = 100.000000000000000000
+    SystemPrinter.ScaleX = 100.000000000000000000
+    SystemPrinter.ScaleY = 100.000000000000000000
+    SystemPrinter.StatusFormat = 'Printing page %p'
+    SystemPrinter.Title = 'Rave Report'
+    SystemPrinter.UnitsFactor = 1.000000000000000000
+    Left = 72
+    Top = 184
+  end
+  object rvprjVenda: TRvProject
+    Engine = rvsysVenda
+    ProjectFile = 'D:\Aula_OO_Vilson\22_06_18\RelatorioFornecedor.rav'
+    Left = 200
+    Top = 168
+  end
+  object DSP2: TDataSetProvider
+    DataSet = SQL1
+    Left = 272
+    Top = 248
+  end
+  object rvdsVenda: TRvDataSetConnection
+    RuntimeVisibility = rtDeveloper
+    DataSet = CDS2
+    Left = 352
+    Top = 160
+  end
+  object CDS2: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'DSP2'
+    Left = 408
+    Top = 248
+  end
+  object SQL1: TSQLQuery
+    Active = True
+    MaxBlobSize = -1
+    Params = <>
+    SQL.Strings = (
+      'Select * from Pessoa where tipo ='#39'F'#39)
+    SQLConnection = Data.SQLConnection1
+    Left = 496
+    Top = 152
+  end
+end

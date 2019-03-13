@@ -1,0 +1,24 @@
+unit UCadCliente;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs;
+
+type
+  TFCad_Cliente = class(TForm)
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FCad_Cliente: TFCad_Cliente;
+
+implementation
+
+{$R *.dfm}
+
+end.

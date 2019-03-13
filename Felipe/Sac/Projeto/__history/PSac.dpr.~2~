@@ -1,0 +1,16 @@
+program PSac;
+
+uses
+  Forms,
+  UPrincipal in '..\Fontes\UPrincipal.pas' {FPrincipal},
+  UDM in '..\Fontes\UDM.pas' {DM: TDataModule};
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TFPrincipal, FPrincipal);
+  Application.CreateForm(TDM, DM);
+  Application.Run;
+end.

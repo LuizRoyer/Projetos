@@ -1,0 +1,87 @@
+unit UProduto;
+
+interface
+
+uses
+  classes, dialogs, SqlExpr, sysutils, UPessoa;
+
+Type
+  TProduto = class
+  private
+    idPrd: integer;
+    descricao: String;
+    unidade: string;
+    valor: double;
+    qtdEstoque: double;
+
+  protected
+    SQL: TSQLQuery;
+  public
+    property pIdPrd: integer read idPrd write idPrd;
+    property PDescricao: string read descricao write descricao;
+    property pUnidade: string read unidade write unidade;
+    property pValor: double read valor write valor;
+    property pQtdEstoque: double read qtdEstoque write qtdEstoque;
+    property pSQLQuery: TSQLQuery read SQL write SQL;
+
+    procedure gravar;
+    procedure excluir(id: integer);
+    procedure atualizar(id: integer);
+    procedure pesquisar;
+
+  end;
+
+implementation
+
+
+procedure TProduto.atualizar(id: integer);
+begin
+  SQL.SQL.Clear;
+  SQL.SQL.Add('update  Produto set  ');
+  SQL.SQL.Add('descricao =:descricao , unidade =:unidade,');
+  SQL.SQL.Add('qtdEstoque =:qtdEstoque, valor =:valor where idPrd =:id');
+
+  SQL.ParamByName('descricao').AsString := self.descricao;
+  SQL.ParamByName('unidade').AsString := self.unidade;
+  SQL.ParamByName('valor').AsFloat := self.valor;
+  SQL.ParamByName('qtdEstoque').AsFloat := self.qtdEstoque;
+  SQL.ParamByName('id').AsInteger := id;
+
+  SQL.ExecSQL;
+end;
+
+procedure TProduto.excluir(id: integer);
+begin
+  SQL.SQL.Clear;
+  SQL.SQL.Add('delete  from  Produto where idPrd =:id');
+  SQL.ParamByName('id').AsInteger := id;
+  SQL.ExecSQL;
+end;
+
+procedure TProduto.gravar;
+begin
+  SQL.SQL.Clear;
+  SQL.SQL.Add('Insert into Produto');
+  SQL.SQL.Add('(idPrd , descricao, unidade, valor, qtdEstoque)');
+  SQL.SQL.Add('values');
+  SQL.SQL.Add('(:idPrd , :descricao, :unidade, :valor, :qtdEstoque)');
+
+  SQL.ParamByName('idPrd').AsInteger := self.idPrd;
+  SQL.ParamByName('descricao').AsString := self.descricao;
+  SQL.ParamByName('unidade').AsString := self.unidade;
+  SQL.ParamByName('valor').AsFloat := self.valor;
+  SQL.ParamByName('qtdEstoque').AsFloat := self.qtdEstoque;
+
+  SQL.ExecSQL;
+end;
+
+procedure TProduto.pesquisar;
+begin
+  SQL.Close;
+  SQL.SQL.Clear;
+  SQL.SQL.Add('Select *  from Produto');
+  SQL.ExecSQL;
+  SQL.open;
+end;
+
+end.

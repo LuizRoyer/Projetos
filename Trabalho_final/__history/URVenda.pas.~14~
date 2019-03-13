@@ -1,0 +1,110 @@
+unit URVenda;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls, ExtCtrls, ComCtrls, UVenda, UVendaItem, UData, FMTBcd, DB,
+  SqlExpr, RpBase, RpSystem, RpRave, RpDefine, RpCon, RpConDS, DBClient,
+  Provider;
+
+type
+  TFRVenda = class(TForm)
+    ListView1: TListView;
+    txtCnpJCpf: TEdit;
+    Label6: TLabel;
+    btnPesquisar: TButton;
+    Panel2: TPanel;
+    Button3: TButton;
+    CDS3: TClientDataSet;
+    rvdsVenda: TRvDataSetConnection;
+    rvprjVenda: TRvProject;
+    rvsysVenda: TRvSystem;
+    SQL1: TSQLQuery;
+    DSP3: TDataSetProvider;
+    Label1: TLabel;
+    Label2: TLabel;
+    dtInicial: TDateTimePicker;
+    dtFim: TDateTimePicker;
+    procedure btnPesquisarClick(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
+    procedure ListView1SelectItem(Sender: TObject; Item: TListItem;
+      Selected: Boolean);
+
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FRVenda: TFRVenda;
+  SQLQuery: TSQLQuery;
+  vendasItem: TVendaItem;
+  venda: TVenda;
+
+implementation
+
+{$R *.dfm}
+
+procedure TFRVenda.btnPesquisarClick(Sender: TObject);
+var
+  qtd, valor, desconto, acrecimo: double;
+begin
+
+  venda := TVenda.Create();
+  venda.pSQLQuery := Data.SQLQuery1;
+  ListView1.Clear;
+  venda.pSQLQuery := Data.SQLQuery1;
+  //SQL1 := Data.SQLQuery1;
+  venda.RelatorioVenda(txtCnpJCpf.Text, dtInicial.Date, dtFim.Date);
+  venda.pSQLQuery.First;
+  while (not venda.pSQLQuery.eof) do
+  begin
+    with ListView1.Items.Add do
+    begin
+      Caption := venda.pSQLQuery.FieldByName('idV').AsString;
+      SubItems.Add(venda.pSQLQuery.FieldByName('cliente').AsString);
+      SubItems.Add(venda.pSQLQuery.FieldByName('nome').AsString);
+      SubItems.Add(venda.pSQLQuery.FieldByName('status').AsString);
+      SubItems.Add(venda.pSQLQuery.FieldByName('tipo').AsString);
+      SubItems.Add(venda.pSQLQuery.FieldByName('descricao').AsString);
+
+      SubItems.Add(venda.pSQLQuery.FieldByName('valorUnitario').AsString);
+      SubItems.Add(venda.pSQLQuery.FieldByName('qtdVenda').AsString);
+
+      qtd := StrToFloat((venda.pSQLQuery.FieldByName('qtdVenda').AsString));
+      valor := StrToFloat((venda.pSQLQuery.FieldByName('valorUnitario')
+        .AsString));
+      desconto := StrToFloat((venda.pSQLQuery.FieldByName('desconto')
+        .AsString));
+      acrecimo := StrToFloat((venda.pSQLQuery.FieldByName('acrecimo')
+        .AsString));
+
+      SubItems.Add(FloatToStr(valor + acrecimo - desconto));
+      SubItems.Add(FloatToStr(qtd * (valor + acrecimo - desconto)));
+    end;
+    venda.pSQLQuery.Next;
+  end;
+end;
+
+procedure TFRVenda.Button1Click(Sender: TObject);
+begin
+  venda.pSQLQuery := sql1;
+  venda.RelatorioVenda(ListView1.Selected.Caption);
+
+  CDS3.Active := true;
+  CDS3.Refresh;
+
+  rvprjVenda.Open;
+  rvprjVenda.execute;
+  rvprjVenda.close;
+end;
+
+procedure TFRVenda.ListView1SelectItem(Sender: TObject; Item: TListItem;
+  Selected: Boolean);
+begin
+  Button3.Enabled := true;
+end;
+
+end.

@@ -1,0 +1,38 @@
+unit uCad_Problema;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls, Mask, DBCtrls, ExtCtrls, Buttons, Grids, DBGrids;
+
+type
+  TfCad_Problema = class(TForm)
+    pnl3: TPanel;
+    lbl1: TLabel;
+    lbl2: TLabel;
+    edCODIGO: TDBEdit;
+    edDescricao: TDBEdit;
+    pnl2: TPanel;
+    dgSistema: TDBGrid;
+    pnl1: TPanel;
+    btNovo: TBitBtn;
+    btGravar: TBitBtn;
+    btCancelar: TBitBtn;
+    btAlterar: TBitBtn;
+    btExcluir: TBitBtn;
+    btSair: TBitBtn;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  fCad_Problema: TfCad_Problema;
+
+implementation
+
+{$R *.dfm}
+
+end.

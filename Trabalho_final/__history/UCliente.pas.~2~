@@ -1,0 +1,33 @@
+unit UCliente;
+
+interface
+
+uses
+  classes, dialogs, UPessoa;
+
+Type
+  TCliente = class(TPessoa)
+    cpf: string;
+    procedure gravar; override;
+  end;
+
+implementation
+
+{ TCliente }
+
+procedure TCliente.gravar;
+begin
+  inherited;
+  SQLQuery.SQL.Clear;
+  SQLQuery.SQL.Add('update pessoa set');
+  SQLQuery.SQL.Add(' tipo = :tipo, ');
+  SQLQuery.SQL.Add(' identificacao = :identificacao');
+  SQLQuery.SQL.Add(' where id = :id');
+
+  SQLQuery.ParamByName('tipo').AsString := 'C';
+  SQLQuery.ParamByName('identificacao').AsString := self.cpf;
+  SQLQuery.ParamByName('id').AsInteger := self.pid;
+  SQLQuery.ExecSQL();
+end;
+
+end.

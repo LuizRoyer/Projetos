@@ -1,0 +1,28 @@
+program PFinal;
+
+uses
+  Forms,
+  UMenu in 'UMenu.pas' {Menu},
+  UPessoa in 'UPessoa.pas',
+  UVenda in 'UVenda.pas',
+  UProduto in 'UProduto.pas',
+  UVendaItem in 'UVendaItem.pas',
+  FPessoa in 'FPessoa.pas' {FPessoas},
+  FProduto in 'FProduto.pas' {FProdutos},
+  FVenda in 'FVenda.pas' {FVendas},
+  UData in 'UData.pas' {Data: TDataModule},
+  FRelatorio in 'FRelatorio.pas' {Form1};
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TMenu, Menu);
+  Application.CreateForm(TFPessoas, FPessoas);
+  Application.CreateForm(TFProdutos, FProdutos);
+  Application.CreateForm(TFVendas, FVendas);
+  Application.CreateForm(TData, Data);
+  Application.CreateForm(TFRelatorios, Form1);
+  Application.Run;
+end.

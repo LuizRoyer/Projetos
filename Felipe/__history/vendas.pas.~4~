@@ -1,0 +1,200 @@
+unit vendas;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, Grids, StdCtrls, ExtCtrls;
+
+type
+  TForm1 = class(TForm)
+    Panel1: TPanel;
+    Label1: TLabel;
+    edCliente: TEdit;
+    cbCliente: TComboBox;
+    Label2: TLabel;
+    Panel2: TPanel;
+    Label3: TLabel;
+    edProduto: TEdit;
+    Label4: TLabel;
+    Label5: TLabel;
+    edquantidade: TEdit;
+    edValorUnitario: TEdit;
+    lsProduto: TListBox;
+    Label6: TLabel;
+    btninserir: TButton;
+    btnRemover: TButton;
+    Panel3: TPanel;
+    btnGravar: TButton;
+    btnSair: TButton;
+    Panel4: TPanel;
+    Button1: TButton;
+    Button2: TButton;
+    Button3: TButton;
+    Button4: TButton;
+    Label7: TLabel;
+    Label8: TLabel;
+    LbTotalNota: TLabel;
+    sgVendas: TStringGrid;
+    procedure btnSairClick(Sender: TObject);
+    procedure FormActivate(Sender: TObject);
+    procedure edquantidadeKeyPress(Sender: TObject; var Key: Char);
+    procedure edValorUnitarioKeyPress(Sender: TObject; var Key: Char);
+    procedure btninserirClick(Sender: TObject);
+    procedure LimparCampos();
+    procedure TemCliente();
+    procedure Remover();
+    procedure btnRemoverClick(Sender: TObject);
+
+  private
+  private
+    procedure LimparGrid();
+    procedure Inserir();
+  public
+    { Public declarations }
+  end;
+
+var
+  Form1: TForm1;
+
+implementation
+
+{$R *.dfm}
+
+procedure TForm1.btninserirClick(Sender: TObject);
+begin
+  if (edProduto.Text = '') then
+  begin
+    Application.MessageBox('Informe o produto', 'Aviso',
+      MB_OK + MB_ICONWARNING);
+    edProduto.SetFocus;
+    exit;
+  end;
+
+  if (edquantidade.Text = '') then
+  begin
+    Application.MessageBox('Informe a Quantidade', 'Aviso',
+      MB_OK + MB_ICONWARNING);
+    edquantidade.SetFocus;
+    exit;
+  end;
+  if (edValorUnitario.Text = '') then
+  begin
+    Application.MessageBox('Informe Valor do Produto', 'Aviso',
+      MB_OK + MB_ICONWARNING);
+    edValorUnitario.SetFocus;
+    exit;
+  end;
+  self.TemCliente;
+  self.Inserir;
+  self.LimparCampos;
+
+end;
+
+procedure TForm1.btnRemoverClick(Sender: TObject);
+begin
+  self.Remover;
+end;
+
+procedure TForm1.btnSairClick(Sender: TObject);
+begin
+
+  Application.Terminate;
+
+end;
+
+procedure TForm1.edquantidadeKeyPress(Sender: TObject; var Key: Char);
+begin
+
+  if not(Key in ['0' .. '9', ',', #8, #13]) then
+    Key := #0;
+end;
+
+procedure TForm1.edValorUnitarioKeyPress(Sender: TObject; var Key: Char);
+begin
+  if not(Key in ['0' .. '9', ',', #8, #13]) then
+    Key := #0;
+end;
+
+procedure TForm1.FormActivate(Sender: TObject);
+begin
+
+  LbTotalNota.Caption := '0';
+  if (FileExists('T:\Felipe\Clientes.txt')) then
+    cbCliente.items.LoadFromFile('T:\Felipe\Clientes.txt');
+
+  if (FileExists('T:\Felipe\Produtos.txt')) then
+    lsProduto.items.LoadFromFile('T:\Felipe\Produtos.txt');
+
+end;
+
+procedure TForm1.Inserir;
+var
+  soma: real;
+begin
+  if (sgVendas.Cells[0, 0] <> '') then
+    sgVendas.RowCount := sgVendas.RowCount + 1;
+
+  sgVendas.Cells[0, sgVendas.RowCount - 1] := edProduto.Text;
+  sgVendas.Cells[1, sgVendas.RowCount - 1] := edquantidade.Text;
+  sgVendas.Cells[2, sgVendas.RowCount - 1] := edValorUnitario.Text;
+
+  soma := StrToFloat(edquantidade.Text) * StrToFloat(edValorUnitario.Text);
+  sgVendas.Cells[3, sgVendas.RowCount - 1] := FloatToStr(soma);
+
+  LbTotalNota.Caption := FloatToStr(StrToFloat(LbTotalNota.Caption) + soma);
+
+end;
+
+procedure TForm1.LimparCampos;
+begin
+
+  edProduto.clear;
+  edquantidade.clear;
+  edquantidade.clear;
+  edValorUnitario.clear;
+
+end;
+
+procedure TForm1.LimparGrid;
+var
+  lin, col: integer;
+begin
+  for lin := 0 to sgVendas.RowCount - 1 do
+    for col := 0 to sgVendas.ColCount - 1 do
+      sgVendas.Cells[col, lin] := '';
+  sgVendas.RowCount := 1;
+
+end;
+
+procedure TForm1.Remover;
+var
+  lin, col: integer;
+  soma: real;
+begin
+  soma := StrToFloat(sgVendas.Cells[3, sgVendas.Row]);
+  for lin := sgVendas.Row to sgVendas.RowCount - 2 do
+    for col := 0 to sgVendas.ColCount - 1 do
+
+      sgVendas.Cells[col, lin] := sgVendas.Cells[col, lin + 1];
+
+  for col := 0 to sgVendas.ColCount - 1 do
+  begin
+    sgVendas.Cells[col, sgVendas.Rows - 1] := '';
+    sgVendas.RowCount := sgVendas.RowCount - 1;
+    LbTotalNota.Caption := FloatToStr(StrToFloat(LbTotalNota.Caption) - soma);
+
+  end;
+
+end;
+
+procedure TForm1.TemCliente;
+begin
+  if (cbCliente.items.IndexOf(edCliente.Text) < 0) then
+    cbCliente.items.Add(edCliente.Text);
+
+  if (lsProduto.items.IndexOf(edProduto.Text) < 0) then
+    lsProduto.items.Add(edProduto.Text);
+end;
+
+end.

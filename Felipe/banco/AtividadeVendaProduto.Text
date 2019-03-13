@@ -1,0 +1,48 @@
+# A) - Qual a quantidade de produtos com preço maior que 5,00  R$?
+
+select  count(idproduto)from produto where venda>5;  
+
+ # B) - Quantos tipos de produtos existem por nota ﬁscal?
+
+select count(fk_produto),fk_notaFiscal from controledevenda  group by 2;
+ 
+# C) - Qual a média de preço de produto por categoria? 
+
+select avg(custo),fk_Classificacao from produto  group by 2 ;
+
+# D) - Qual a quantidade total de produtos por nota ﬁscal 
+
+select fk_notaFiscal,sum(Quantidade) from controledevenda group by 1;
+
+# E) - Quais notas ﬁscais possuem mais que 10 produtos cadastrados, ordenado pela nota com maior quantidade de produtos?  
+
+select fk_notaFiscal from controledevenda group by 1 having  sum(Quantidade)>=10;
+
+# F) - Quais produtos aparecem em 3 ou menos notas ﬁscais? 
+
+select fk_produto from controledevenda group by 1 having count(fk_produto)<=3;
+
+ # I) - Quais os dias que possuem 2 ou mais notas ﬁscais de compra?
+ 
+select dataCompra from nota_fiscal group by 1 having count(1)>=2;
+
+# H) - Qual a quantidade de vendas por mês? 
+select  monthname(dataCompra),count(idNota_fiscal) from nota_fiscal group by 1;
+
+ # J) - Qual a quantidade de notas ﬁscais por tipo separada por dia?
+
+select dataCompra,count(idNota_fiscal),fk_TipoNota from nota_fiscal group by day(dataCompra),3;
+
+ # K) - Qual a quantidade de notas ﬁscais para a data atual?;
+
+select count(idNota_fiscal) from nota_fiscal  where dataCompra = date(now());
+
+
+
+
+
+
+
+
+
+

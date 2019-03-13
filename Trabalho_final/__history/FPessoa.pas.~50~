@@ -1,0 +1,250 @@
+unit FPessoa;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, ExtCtrls, StdCtrls, ComCtrls, FMTBcd, DB, SqlExpr, UMenu, UPessoa,
+  udata;
+
+type
+  TFPessoas = class(TForm)
+    Panel1: TPanel;
+    txtid: TEdit;
+    Label1: TLabel;
+    rbCliente: TRadioButton;
+    rbFornecedor: TRadioButton;
+    txtNome: TEdit;
+    Label2: TLabel;
+    Label3: TLabel;
+    txtEndereco: TEdit;
+    Label4: TLabel;
+    txtContato: TEdit;
+    Label5: TLabel;
+    txtCnpJCpf: TEdit;
+    Label6: TLabel;
+    ListView1: TListView;
+    btnSalvar: TButton;
+    btnAlterar: TButton;
+    btnExcluir: TButton;
+    btnPesquisar: TButton;
+    DataNasc: TEdit;
+    procedure FormShow(Sender: TObject);
+    procedure btnSalvarClick(Sender: TObject);
+    procedure btnPesquisarClick(Sender: TObject);
+    procedure btnExcluirClick(Sender: TObject);
+    procedure ListView1SelectItem(Sender: TObject; Item: TListItem;
+      Selected: Boolean);
+    procedure btnAlterarClick(Sender: TObject);
+    procedure Limpar();
+  private
+    { Private declarations }
+  public
+    tipo: string;
+
+    Function CarregarPessoa(): TPessoa;
+
+  end;
+
+var
+  FPessoas: TFPessoas;
+  SQLQuery1: TSQLQuery;
+  Pessoa: TPessoa;
+
+implementation
+
+{$R *.dfm}
+{ TFPessoas }
+
+procedure TFPessoas.btnAlterarClick(Sender: TObject);
+begin
+  Pessoa := TPessoa.Create;
+
+  Pessoa.pNome := txtNome.Text;
+  Pessoa.pContato := txtContato.Text;
+  Pessoa.pEndereco := txtEndereco.Text;
+  Pessoa.pData_nasc := DataNasc.Text;
+
+  if (rbCliente.Checked) then
+  begin
+    Pessoa.pCpf := txtCnpJCpf.Text;
+    Pessoa.pCnpj := '0';
+    label6.Caption :='CPF';
+    tipo :='C';
+  end
+  else
+  begin
+    Pessoa.pCpf := '0';
+    Pessoa.pCnpj := txtCnpJCpf.Text;
+    tipo :='F';
+    label6.Caption :='CNPJ';
+
+  end;
+  // atribuir query antes de gravar
+  Pessoa.pSQLQuery := Data.SQLQuery1;
+  Pessoa.Atualizar(StrToInt(txtid.Text));
+
+  txtid.Text := IntToStr(Pessoa.pIdPes);
+  ShowMessage('Atualizado com sucesso');
+  Limpar();
+  btnPesquisarClick(Sender);
+  txtid.Enabled := true;
+
+end;
+
+procedure TFPessoas.btnSalvarClick(Sender: TObject);
+begin
+  Pessoa := TPessoa.Create;
+
+  Pessoa.pNome := txtNome.Text;
+  Pessoa.pContato := txtContato.Text;
+  Pessoa.pEndereco := txtEndereco.Text;
+  Pessoa.pData_nasc := DataNasc.Text;
+  Pessoa.pTipo := tipo;
+
+  if (tipo = 'C') then
+  begin
+    Pessoa.pCpf := txtCnpJCpf.Text;
+    Pessoa.pCnpj := '0';
+    label6.Caption :='CPF';
+  end
+  else
+  begin
+    Pessoa.pCpf := '0';
+    Pessoa.pCnpj := txtCnpJCpf.Text;
+    label6.Caption :='CNPJ';
+
+  end;
+  // atribuir query antes de gravar
+  Pessoa.pSQLQuery := Data.SQLQuery1;
+  Pessoa.gravar;
+
+  txtid.Text := IntToStr(Pessoa.pIdPes);
+  ShowMessage('Gravado com sucesso');
+  Limpar();
+  btnPesquisarClick(Sender);
+end;
+
+function TFPessoas.CarregarPessoa: TPessoa;
+begin
+
+  Pessoa.pIdPes := StrToInt(txtid.Text);
+  Pessoa.pNome := txtNome.Text;
+  Pessoa.pEndereco := txtEndereco.Text;
+  Pessoa.pData_nasc := DataNasc.Text;
+
+  if (rbCliente.Checked) then
+  begin
+    Pessoa.pCpf := txtCnpJCpf.Text;
+    Pessoa.pCnpj := '0';
+     Pessoa.pTipo := 'C';
+     label6.Caption :='CPF';
+  end
+  else
+  begin
+    Pessoa.pCpf := '0';
+    Pessoa.pCnpj := txtCnpJCpf.Text;;
+    Pessoa.pTipo := 'F';
+    label6.Caption :='CNPJ';
+
+  end;
+
+  Result :=pessoa;
+end;
+
+procedure TFPessoas.btnExcluirClick(Sender: TObject);
+begin
+  if ListView1.ItemIndex >= 0 then
+  begin
+
+    Pessoa.Excluir(StrToInt(ListView1.Items[ListView1.Selected.Index].Caption));
+    ListView1.DeleteSelected;
+
+  end
+  else
+    ShowMessage('Selecione um item para excluir');
+end;
+
+procedure TFPessoas.btnPesquisarClick(Sender: TObject);
+begin
+
+  ListView1.Clear;
+  Pessoa.pSQLQuery := Data.SQLQuery1;
+  Pessoa.Pesquisar;
+  Pessoa.pSQLQuery.First;
+  while (not Pessoa.pSQLQuery.eof) do
+  begin
+    with ListView1.Items.Add do
+    begin
+      Caption := Pessoa.pSQLQuery.FieldByName('idPes').AsString;
+      SubItems.Add(Pessoa.pSQLQuery.FieldByName('nome').AsString);
+      SubItems.Add(Pessoa.pSQLQuery.FieldByName('endereco').AsString);
+      SubItems.Add(Pessoa.pSQLQuery.FieldByName('contato').AsString);
+      SubItems.Add(Pessoa.pSQLQuery.FieldByName('dataNasc').AsString);
+      SubItems.Add(Pessoa.pSQLQuery.FieldByName('tipo').AsString);
+      SubItems.Add(Pessoa.pSQLQuery.FieldByName('cpf').AsString);
+      SubItems.Add(Pessoa.pSQLQuery.FieldByName('cnpj').AsString);
+    end;
+    Pessoa.pSQLQuery.Next;
+  end;
+end;
+
+procedure TFPessoas.FormShow(Sender: TObject);
+begin
+  tipo := UMenu.Menu.tipo;
+
+  if (tipo = 'C') then
+  begin
+    rbCliente.Checked := true;
+    label6.Caption :='Cliente';
+  end
+  else
+  begin
+    rbFornecedor.Checked := true;
+    label6.Caption :='Fornecedor';
+  end;
+
+  Pessoa := TPessoa.Create;
+   btnPesquisarClick(Sender);
+
+end;
+
+procedure TFPessoas.Limpar;
+begin
+
+  txtid.Clear();
+  txtNome.Clear();
+  txtEndereco.Clear();
+  txtContato.Clear();
+  txtCnpJCpf.Clear();
+  DataNasc.Clear();
+
+end;
+
+procedure TFPessoas.ListView1SelectItem(Sender: TObject; Item: TListItem;
+  Selected: Boolean);
+begin
+
+  txtid.Text := Item.Caption;
+  txtNome.Text := Item.SubItems[0];
+  txtEndereco.Text := Item.SubItems[1];
+  txtContato.Text := Item.SubItems[2];
+  DataNasc.Text := Item.SubItems[3];
+
+  if (Item.SubItems[4] = 'C') then
+  begin
+    rbCliente.Checked := true;
+    label6.Caption :='CPF';
+    txtCnpJCpf.Text := Item.SubItems[5];
+  end
+  else
+  begin
+    rbFornecedor.Checked := true;
+    txtCnpJCpf.Text := Item.SubItems[6];
+    label6.Caption :='CNPJ';
+  end;
+  CarregarPessoa();
+  txtid.Enabled := false;
+end;
+
+end.

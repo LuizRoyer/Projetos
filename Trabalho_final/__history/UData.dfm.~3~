@@ -1,0 +1,325 @@
+object Data: TData
+  OldCreateOrder = False
+  Height = 373
+  Width = 562
+  object SQLQuery1: TSQLQuery
+    MaxBlobSize = -1
+    Params = <>
+    SQLConnection = SQLConnection1
+    Left = 184
+    Top = 16
+  end
+  object SQLConnection1: TSQLConnection
+    DriverName = 'MySQL'
+    GetDriverFunc = 'getSQLDriverMYSQL'
+    LibraryName = 'dbxmys.dll'
+    LoginPrompt = False
+    Params.Strings = (
+      'DriverUnit=DBXMySQL'
+      
+        'DriverPackageLoader=TDBXDynalinkDriverLoader,DbxCommonDriver150.' +
+        'bpl'
+      
+        'DriverAssemblyLoader=Borland.Data.TDBXDynalinkDriverLoader,Borla' +
+        'nd.Data.DbxCommonDriver,Version=15.0.0.0,Culture=neutral,PublicK' +
+        'eyToken=91d62ebb5b0d1b1b'
+      
+        'MetaDataPackageLoader=TDBXMySqlMetaDataCommandFactory,DbxMySQLDr' +
+        'iver150.bpl'
+      
+        'MetaDataAssemblyLoader=Borland.Data.TDBXMySqlMetaDataCommandFact' +
+        'ory,Borland.Data.DbxMySQLDriver,Version=15.0.0.0,Culture=neutral' +
+        ',PublicKeyToken=91d62ebb5b0d1b1b'
+      'GetDriverFunc=getSQLDriverMYSQL'
+      'LibraryName=dbxmys.dll'
+      'VendorLib=LIBMYSQL.dll'
+      'HostName=localhost'
+      'Database=conclusao'
+      'User_Name=root'
+      'Password=123'
+      'MaxBlobSize=-1'
+      'LocaleCode=0000'
+      'Compressed=False'
+      'Encrypted=False'
+      'BlobSize=-1'
+      'ErrorResourceFile=')
+    VendorLib = 'LIBMYSQL.dll'
+    Connected = True
+    Left = 72
+    Top = 24
+  end
+  object Itens_Venda: TSQLDataSet
+    SchemaName = 'root'
+    CommandText = 'select * from  itens_vendas'
+    DbxCommandType = 'Dbx.SQL'
+    MaxBlobSize = -1
+    Params = <>
+    SQLConnection = SQLConnection1
+    Left = 72
+    Top = 120
+    object Itens_VendaPK_Itens_Vendas: TIntegerField
+      FieldName = 'PK_Itens_Vendas'
+      Required = True
+    end
+    object Itens_Vendaqtde: TSingleField
+      FieldName = 'qtde'
+    end
+    object Itens_Vendavalorunitario: TSingleField
+      FieldName = 'valorunitario'
+    end
+    object Itens_Vendadesconto: TSingleField
+      FieldName = 'desconto'
+    end
+    object Itens_Vendaacrescimo: TSingleField
+      FieldName = 'acrescimo'
+    end
+    object Itens_VendaVenda_PK_Venda: TIntegerField
+      FieldName = 'Venda_PK_Venda'
+      Required = True
+    end
+    object Itens_VendaProduto_PK_Produto: TIntegerField
+      FieldName = 'Produto_PK_Produto'
+      Required = True
+    end
+  end
+  object Itens_V_enda1: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'Itens_Venda1'
+    Left = 72
+    Top = 272
+    object Itens_V_enda1PK_Itens_Vendas: TIntegerField
+      FieldName = 'PK_Itens_Vendas'
+      Required = True
+    end
+    object Itens_V_enda1qtde: TSingleField
+      FieldName = 'qtde'
+    end
+    object Itens_V_enda1valorunitario: TSingleField
+      FieldName = 'valorunitario'
+    end
+    object Itens_V_enda1desconto: TSingleField
+      FieldName = 'desconto'
+    end
+    object Itens_V_enda1acrescimo: TSingleField
+      FieldName = 'acrescimo'
+    end
+    object Itens_V_enda1Venda_PK_Venda: TIntegerField
+      FieldName = 'Venda_PK_Venda'
+      Required = True
+    end
+    object Itens_V_enda1Produto_PK_Produto: TIntegerField
+      FieldName = 'Produto_PK_Produto'
+      Required = True
+    end
+  end
+  object Itens_Venda1: TDataSetProvider
+    DataSet = Itens_Venda
+    Left = 72
+    Top = 192
+  end
+  object Pessoa: TSQLDataSet
+    SchemaName = 'root'
+    CommandText = 'select * from pessoa'
+    DbxCommandType = 'Dbx.SQL'
+    MaxBlobSize = -1
+    Params = <>
+    SQLConnection = SQLConnection1
+    Left = 168
+    Top = 120
+    object PessoaPK_Pessoa: TIntegerField
+      FieldName = 'PK_Pessoa'
+      Required = True
+    end
+    object Pessoanome: TStringField
+      FieldName = 'nome'
+      Size = 45
+    end
+    object Pessoaendereco: TStringField
+      FieldName = 'endereco'
+      Size = 45
+    end
+    object Pessoacontato: TStringField
+      FieldName = 'contato'
+      Size = 45
+    end
+    object Pessoadata_nasc: TStringField
+      FieldName = 'data_nasc'
+      Size = 45
+    end
+    object Pessoacnpj: TStringField
+      FieldName = 'cnpj'
+      Size = 45
+    end
+    object Pessoacpf: TStringField
+      FieldName = 'cpf'
+      Size = 45
+    end
+    object Pessoatipo: TStringField
+      FieldName = 'tipo'
+      Size = 45
+    end
+  end
+  object Pe_ssoa: TDataSetProvider
+    DataSet = Pessoa
+    Left = 168
+    Top = 192
+  end
+  object PESS_oa: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'Pe_ssoa'
+    Left = 168
+    Top = 264
+    object PESS_oaPK_Pessoa: TIntegerField
+      FieldName = 'PK_Pessoa'
+      Required = True
+    end
+    object PESS_oanome: TStringField
+      FieldName = 'nome'
+      Size = 45
+    end
+    object PESS_oaendereco: TStringField
+      FieldName = 'endereco'
+      Size = 45
+    end
+    object PESS_oacontato: TStringField
+      FieldName = 'contato'
+      Size = 45
+    end
+    object PESS_oadata_nasc: TStringField
+      FieldName = 'data_nasc'
+      Size = 45
+    end
+    object PESS_oacnpj: TStringField
+      FieldName = 'cnpj'
+      Size = 45
+    end
+    object PESS_oacpf: TStringField
+      FieldName = 'cpf'
+      Size = 45
+    end
+    object PESS_oatipo: TStringField
+      FieldName = 'tipo'
+      Size = 45
+    end
+  end
+  object Produto: TSQLDataSet
+    SchemaName = 'root'
+    CommandText = 'select * from produto'
+    DbxCommandType = 'Dbx.SQL'
+    MaxBlobSize = -1
+    Params = <>
+    SQLConnection = SQLConnection1
+    Left = 248
+    Top = 120
+    object ProdutoPK_Produto: TIntegerField
+      FieldName = 'PK_Produto'
+      Required = True
+    end
+    object Produtodescricao: TStringField
+      FieldName = 'descricao'
+      Size = 45
+    end
+    object Produtoun: TStringField
+      FieldName = 'un'
+      Size = 45
+    end
+    object Produtovalorunitario: TSingleField
+      FieldName = 'valorunitario'
+    end
+    object Produtoqtdeestoque: TSingleField
+      FieldName = 'qtdeestoque'
+    end
+  end
+  object Pro_duto: TDataSetProvider
+    DataSet = Produto
+    Left = 248
+    Top = 192
+  end
+  object PRO_DU_TO: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'Pro_duto'
+    Left = 248
+    Top = 264
+    object PRO_DU_TOPK_Produto: TIntegerField
+      FieldName = 'PK_Produto'
+      Required = True
+    end
+    object PRO_DU_TOdescricao: TStringField
+      FieldName = 'descricao'
+      Size = 45
+    end
+    object PRO_DU_TOun: TStringField
+      FieldName = 'un'
+      Size = 45
+    end
+    object PRO_DU_TOvalorunitario: TSingleField
+      FieldName = 'valorunitario'
+    end
+    object PRO_DU_TOqtdeestoque: TSingleField
+      FieldName = 'qtdeestoque'
+    end
+  end
+  object Venda: TSQLDataSet
+    SchemaName = 'root'
+    CommandText = 'select * from  venda'
+    DbxCommandType = 'Dbx.SQL'
+    MaxBlobSize = -1
+    Params = <>
+    SQLConnection = SQLConnection1
+    Left = 328
+    Top = 120
+    object VendaPK_Venda: TIntegerField
+      FieldName = 'PK_Venda'
+      Required = True
+    end
+    object Vendadata: TDateField
+      FieldName = 'data'
+    end
+    object Vendastatus: TStringField
+      FieldName = 'status'
+      Size = 45
+    end
+    object Vendatipo: TStringField
+      FieldName = 'tipo'
+      Size = 45
+    end
+    object VendaCliente_PK_Pessoa: TIntegerField
+      FieldName = 'Cliente_PK_Pessoa'
+      Required = True
+    end
+  end
+  object Ve_nda: TDataSetProvider
+    DataSet = Venda
+    Left = 328
+    Top = 192
+  end
+  object VEN_DA: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'Ve_nda'
+    Left = 328
+    Top = 264
+    object VEN_DAPK_Venda: TIntegerField
+      FieldName = 'PK_Venda'
+      Required = True
+    end
+    object VEN_DAdata: TDateField
+      FieldName = 'data'
+    end
+    object VEN_DAstatus: TStringField
+      FieldName = 'status'
+      Size = 45
+    end
+    object VEN_DAtipo: TStringField
+      FieldName = 'tipo'
+      Size = 45
+    end
+    object VEN_DACliente_PK_Pessoa: TIntegerField
+      FieldName = 'Cliente_PK_Pessoa'
+      Required = True
+    end
+  end
+end

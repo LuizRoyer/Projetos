@@ -1,0 +1,50 @@
+unit uCad_Sistemas;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls, Mask, DBCtrls, Grids, DBGrids, Buttons, ExtCtrls, uDm,
+  Menus, DB;
+
+type
+  TfCad_Sistemas = class(TForm)
+    pnl1: TPanel;
+    btnNovo: TBitBtn;
+    btnGravar: TBitBtn;
+    btnCancelar: TBitBtn;
+    btnAlterar: TBitBtn;
+    btnExcluir: TBitBtn;
+    btnSair: TBitBtn;
+    pnl2: TPanel;
+    dbgrdSistema: TDBGrid;
+    pnl3: TPanel;
+    lbl1: TLabel;
+    lbl2: TLabel;
+    dbedtCODIGO: TDBEdit;
+    dbedtNOME: TDBEdit;
+    dsSistemas: TDataSource;
+    pm1: TPopupMenu;
+    Novo1: TMenuItem;
+    Gravar1: TMenuItem;
+    Cancelar1: TMenuItem;
+    Alterar1: TMenuItem;
+    Excluir1: TMenuItem;
+    N1: TMenuItem;
+    Sair1: TMenuItem;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  fCad_Sistemas: TfCad_Sistemas;
+
+implementation
+
+uses uPrincipal;
+
+{$R *.dfm}
+
+end.

@@ -1,0 +1,97 @@
+unit uCad_Problema;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls, Mask, DBCtrls, ExtCtrls, Buttons, Grids, DBGrids, uDm,
+  Menus, DB;
+
+type
+  TfCad_Problema = class(TForm)
+    pnl3: TPanel;
+    lbl1: TLabel;
+    lbl2: TLabel;
+    edCODIGO: TDBEdit;
+    edDescricao: TDBEdit;
+    pnl2: TPanel;
+    dgSistema: TDBGrid;
+    pnl1: TPanel;
+    btNovo: TBitBtn;
+    btGravar: TBitBtn;
+    btCancelar: TBitBtn;
+    btAlterar: TBitBtn;
+    btExcluir: TBitBtn;
+    btSair: TBitBtn;
+    pnl4: TPanel;
+    lbl3: TLabel;
+    lbl4: TLabel;
+    edCODIGO1: TDBEdit;
+    edIDENTIFICACAO: TDBEdit;
+    dsProblema: TDataSource;
+    pm1: TPopupMenu;
+    Novo1: TMenuItem;
+    Gravar1: TMenuItem;
+    Cancelar1: TMenuItem;
+    Alterar1: TMenuItem;
+    Excluir1: TMenuItem;
+    N1: TMenuItem;
+    Sair1: TMenuItem;
+    procedure dsProblemaStateChange(Sender: TObject);
+    procedure dgSistemaCellClick(Column: TColumn);
+    procedure btSairClick(Sender: TObject);
+    procedure btNovoClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  fCad_Problema: TfCad_Problema;
+
+implementation
+
+uses uPrincipal;
+
+{$R *.dfm}
+
+procedure TfCad_Problema.btNovoClick(Sender: TObject);
+var
+   prox:integer;
+begin
+     with (dm.tbProblema) do
+     begin
+         last;
+         prox:= FieldByName('Codigo').AsInteger + 1;
+         Append;
+         FieldByName('Codigo').AsInteger:= prox;
+     end;
+     edDescricao.Clear;
+     edDescricao.SetFocus;
+end;
+
+procedure TfCad_Problema.btSairClick(Sender: TObject);
+begin
+     dm.tbProblema.Cancel;
+     close;
+end;
+
+procedure TfCad_Problema.dgSistemaCellClick(Column: TColumn);
+begin
+     edDescricao.Text:= dm.tbProblema.FieldByName('Descricao').AsString;
+end;
+
+procedure TfCad_Problema.dsProblemaStateChange(Sender: TObject);
+begin
+    with (dm.tbProblema)do
+     begin
+          btNovo.Enabled:= dsProblema.State in [dsBrowse];
+          btGravar.Enabled:= dsProblema.State in [dsEdit,dsInsert];
+          btCancelar.Enabled:= dsProblema.State in [dsInsert, dsEdit];
+          btAlterar.Enabled:= (dsProblema.State in [dsBrowse]) and (RecordCount > 0);
+          btExcluir.Enabled:= (dsProblema.State in [dsBrowse]) and (RecordCount > 0);
+     end;
+end;
+
+end.

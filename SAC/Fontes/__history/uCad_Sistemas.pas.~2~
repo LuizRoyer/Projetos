@@ -1,0 +1,38 @@
+unit uCad_Sistemas;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls, Mask, DBCtrls, Grids, DBGrids, Buttons, ExtCtrls;
+
+type
+  TfCad_Sistemas = class(TForm)
+    pnl1: TPanel;
+    btnNovo: TBitBtn;
+    btnGravar: TBitBtn;
+    btnCancelar: TBitBtn;
+    btnAlterar: TBitBtn;
+    btnExcluir: TBitBtn;
+    btnSair: TBitBtn;
+    pnl2: TPanel;
+    dbgrdFuncionario: TDBGrid;
+    pnl3: TPanel;
+    lbl1: TLabel;
+    lbl2: TLabel;
+    dbedtCODIGO: TDBEdit;
+    dbedtNOME: TDBEdit;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  fCad_Sistemas: TfCad_Sistemas;
+
+implementation
+
+{$R *.dfm}
+
+end.

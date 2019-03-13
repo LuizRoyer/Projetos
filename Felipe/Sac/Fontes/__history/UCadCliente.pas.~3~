@@ -1,0 +1,51 @@
+unit UCadCliente;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, UDM, StdCtrls, Buttons, Grids, DBGrids, Mask, DBCtrls, DB, ExtCtrls ; /// adicionar alt + f11  adiciona udm
+
+type
+  TFCad_Cliente = class(TForm)
+    aaa: TPanel;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    Panel2: TPanel;
+    DSCliente: TDataSource;
+    edCodigo: TDBEdit;
+    edNome: TDBEdit;
+    edFone: TDBEdit;
+    edemail: TDBEdit;
+    dgvCliente: TDBGrid;
+    btnNovo: TBitBtn;
+    btnGravar: TBitBtn;
+    btnCancel: TBitBtn;
+    btnAlterar: TBitBtn;
+    btnExcluir: TBitBtn;
+    btnSair: TBitBtn;
+    procedure btnSairClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FCad_Cliente: TFCad_Cliente;
+
+implementation
+
+{$R *.dfm}
+
+procedure TFCad_Cliente.btnSairClick(Sender: TObject);
+begin
+
+dm.TBCliente.Cancel;
+close;
+
+end;
+
+end.

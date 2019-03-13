@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2017/09/29 20:11:48.000.822,=T:\Documentos\RAD Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2017/09/29 20:14:53.000.992,T:\Documentos\RAD Studio\Projects\Unit1.dfm=T:\Felipe\Sac\Fontes\UPrincipal.dfm</Transaction>
+    <Transaction>2017/09/29 20:14:53.000.992,T:\Documentos\RAD Studio\Projects\Unit1.pas=T:\Felipe\Sac\Fontes\UPrincipal.pas</Transaction>
+    <Transaction>2017/09/29 20:15:36.000.835,T:\Documentos\RAD Studio\Projects\Project1.dproj=T:\Felipe\Sac\Projeto\PSac.dproj</Transaction>
+    <Transaction>2017/09/29 20:17:08.000.730,=T:\Felipe\Sac\Projeto\Unit1.pas</Transaction>
+    <Transaction>2017/09/29 20:18:39.000.019,T:\Felipe\Sac\Projeto\Unit1.dfm=T:\Felipe\Sac\Fontes\UDM.dfm</Transaction>
+    <Transaction>2017/09/29 20:18:39.000.019,T:\Felipe\Sac\Projeto\Unit1.pas=T:\Felipe\Sac\Fontes\UDM.pas</Transaction>
+    <Transaction>2017/10/02 19:40:18.000.914,=T:\Felipe\Sac\Projeto\Unit1.pas</Transaction>
+    <Transaction>2017/10/02 19:43:29.000.834,T:\Felipe\Sac\Fontes\UCadCliente.dfm=T:\Felipe\Sac\Projeto\Unit1.dfm</Transaction>
+    <Transaction>2017/10/02 19:43:29.000.834,T:\Felipe\Sac\Fontes\UCadCliente.pas=T:\Felipe\Sac\Projeto\Unit1.pas</Transaction>
+    <Transaction>2017/10/09 19:12:44.000.622,=T:\Felipe\Sac\Projeto\Unit1.pas</Transaction>
+    <Transaction>2017/10/09 19:15:59.000.123,T:\Felipe\Sac\Fontes\UCadFuncionario.dfm=T:\Felipe\Sac\Projeto\Unit1.dfm</Transaction>
+    <Transaction>2017/10/09 19:15:59.000.123,T:\Felipe\Sac\Fontes\UCadFuncionario.pas=T:\Felipe\Sac\Projeto\Unit1.pas</Transaction>
+  </Transactions>
+</BorlandProject>

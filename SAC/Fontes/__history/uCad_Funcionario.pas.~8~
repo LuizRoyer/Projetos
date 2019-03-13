@@ -1,0 +1,137 @@
+unit uCad_Funcionario;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Data.DB, Vcl.StdCtrls, Vcl.Mask,
+  Vcl.DBCtrls, Vcl.Grids, Vcl.DBGrids, Vcl.Buttons, Vcl.ExtCtrls, uDm;
+
+type
+  TfCad_Funcionario = class(TForm)
+    Panel3: TPanel;
+    btNovo: TBitBtn;
+    btGravar: TBitBtn;
+    btCancelar: TBitBtn;
+    btAlterar: TBitBtn;
+    btExcluir: TBitBtn;
+    btSair: TBitBtn;
+    Panel2: TPanel;
+    dgCliente: TDBGrid;
+    Panel1: TPanel;
+    Label1: TLabel;
+    Label2: TLabel;
+    edCodigo: TDBEdit;
+    edNome: TDBEdit;
+    dsFuncionario: TDataSource;
+    procedure btSairClick(Sender: TObject);
+    procedure btNovoClick(Sender: TObject);
+    procedure btGravarClick(Sender: TObject);
+    procedure btCancelarClick(Sender: TObject);
+    procedure dsFuncionarioStateChange(Sender: TObject);
+    procedure dgClienteCellClick(Column: TColumn);
+    procedure btAlterarClick(Sender: TObject);
+    procedure btExcluirClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  fCad_Fornecedor: TfCad_Funcionario;
+
+implementation
+
+{$R *.dfm}
+
+procedure TfCad_Fornecedor.btAlterarClick(Sender: TObject);
+begin
+     dm.tbFuncionario.Edit;
+     edNome.SetFocus;
+end;
+
+procedure TfCad_Fornecedor.btCancelarClick(Sender: TObject);
+begin
+      dm.tbFuncionario.Cancel;
+      dm.tbFuncionario.First;
+end;
+
+procedure TfCad_Fornecedor.btExcluirClick(Sender: TObject);
+begin
+     if (Application.MessageBox('Deseja realmente excluir o registro?',
+           'Exclusão',
+      MB_YESNO+MB_ICONQUESTION+MB_DEFBUTTON2)=idYes) then
+   begin
+        dm.tbFuncionario.Delete;
+        dm.trSac.Commit;
+        dm.tbFuncionario.Active:= true;
+   end;
+   btCancelarClick(sender);
+end;
+
+procedure TfCad_Fornecedor.btGravarClick(Sender: TObject);
+begin
+     if edNome.Text = '' then
+     begin
+          Application.MessageBox('Informe o nome!','Aviso',MB_OK+MB_ICONWARNING);
+          exit;
+     end;
+     with (dm.tbFuncionario) do
+     begin
+         if (State in [dsEdit, dsInsert]) then
+         begin
+              post;
+              dm.trSac.Commit;
+              Active:= true;
+         end;
+     end;
+     self.btCancelarClick(sender);
+end;
+
+procedure TfCad_Fornecedor.btNovoClick(Sender: TObject);
+var
+   prox:integer;
+begin
+     with (dm.tbFuncionario)do
+     begin
+        last;
+        prox:= FieldByName('Codigo').AsInteger+1;
+        Append;
+        FieldByName('Codigo').AsInteger:= prox;
+     end;
+     edNome.Clear;
+     edNome.SetFocus;
+end;
+
+procedure TfCad_Fornecedor.btSairClick(Sender: TObject);
+begin
+     dm.tbFuncionario.Cancel;
+     close;
+end;
+
+procedure TfCad_Fornecedor.dgClienteCellClick(Column: TColumn);
+begin
+    edNome.Text:= dm.tbFuncionario.FieldByName('Nome').AsString;
+end;
+
+procedure TfCad_Fornecedor.dsFuncionarioStateChange(Sender: TObject);
+begin
+     with dm do
+     begin
+          btNovo.Enabled:= dsFuncionario.State
+                             in [dsBrowse];
+          btGravar.Enabled:= dsFuncionario.State
+                         in [dsInsert, dsEdit];
+          btCancelar.Enabled:= dsFuncionario.State
+                         in [dsInsert, dsEdit];
+          btAlterar.Enabled:= (dsFuncionario.State
+                         in [dsBrowse]) and
+                         (tbFuncionario.RecordCount > 0);
+          btExcluir.Enabled:= (dsFuncionario.State
+                          in [dsBrowse]) and
+                          (tbFuncionario.RecordCount>0);
+     end;
+end;
+
+end.
